@@ -1,0 +1,109 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus2"
+        },
+        "networkInterfaceName": {
+            "value": "TCAuto123"
+        },
+        "enableAcceleratedNetworking": {
+            "value": true
+        },
+        "networkSecurityGroupName": {
+            "value": "TCAuto-nsg"
+        },
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "RDP",
+                    "properties": {
+                        "priority": 300,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
+        },
+        "subnetName": {
+            "value": "AKS_Cluster_SN"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/279e9b6e-b505-4d37-8bae-1544f55149da/resourceGroups/HPC-ENT-ARCH_RG/providers/Microsoft.Network/virtualNetworks/HPC_EA_VNET1"
+        },
+        "virtualMachineName": {
+            "value": "TCAuto"
+        },
+        "virtualMachineComputerName": {
+            "value": "TCAuto-1"
+        },
+        "virtualMachineRG": {
+            "value": "HPC-ENT-ARCH_RG"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "createOption": "attach",
+                    "deleteOption": "Detach",
+                    "caching": "ReadOnly",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "name": "TCAuto_DataDisk_0",
+                    "storageAccountType": null,
+                    "diskSizeGB": null,
+                    "diskEncryptionSet": null
+                }
+            ]
+        },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "name": "TCAuto_DataDisk_0",
+                    "sku": "StandardSSD_LRS",
+                    "properties": {
+                        "diskSizeGB": 127,
+                        "creationData": {
+                            "createOption": "empty"
+                        }
+                    }
+                }
+            ]
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D2s_v3"
+        },
+        "nicDeleteOption": {
+            "value": "Detach"
+        },
+        "adminUsername": {
+            "value": "TCAdmin2"
+        },
+        "adminPassword": {
+            "reference":{
+				"keyVault":{
+					"id":"/subscriptions/279e9b6e-b505-4d37-8bae-1544f55149da/resourceGroups/HPC-ENT-ARCH_RG/providers/Microsoft.KeyVault/vaults/keyValutForVM"
+				},
+				"secretname":"PasswordForVirtualMachine"
+			}
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enableHotpatching": {
+            "value": false
+        }
+    }
+}
